@@ -1,15 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.utils.prisma import prisma
-from src.routers import auth
+from app.src.utils.prisma import prisma
+from app.src.routers import auth
+from app.src.utils.auth  import get_hashed_password
 
 app = FastAPI()
-
-origins = [
-    "http://localhost",
-    "http://localhost:4200",
-    "http://localhost:5000",
-]
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,31 +21,31 @@ async def startup():
     await prisma.connect()
     await prisma.user.create_many(
         data=[
-        {
-            'username': "jmjm",
-            'name': "juan",
-            'password': "123"
-        },
-        {
-            'username': "pp",
-            'name': "pedro pascal",
-            'password': "sugar"
-        },
-        {
-            'username': "Brck",
-            'name': "Barack",
-            'password': "potus1"
-        },
-        {
-            'username': "TheGrey",
-            'name': "Gandalf",
-            'password': "wzrd"
-        },
-        {
-            'username': "Guilliman",
-            'name': "Roboute",
-            'password': "marine"
-        }
+            {
+                'username': "jmjm",
+                'name': "juan",
+                'password': get_hashed_password("123")
+            },
+            {
+                'username': "pp",
+                'name': "pedro pascal",
+                'password': get_hashed_password("pp")
+            },
+            {
+                'username': "rch",
+                'name': "rodrigo chaves",
+                'password': get_hashed_password("potus1")
+            },
+            {
+                'username': "First",
+                'name': "Lion El Johnson",
+                'password': get_hashed_password("legion1")
+            },
+            {
+                'username': "Guilliman",
+                'name': "Roboute",
+                'password': get_hashed_password("codex")
+            }
         ]
     )
 

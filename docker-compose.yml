@@ -1,5 +1,9 @@
 version: '3.8'
 services:
+  webapp:
+    build: ./angularapp
+    ports:
+      - 4200:80
   flaskapi:
     build: ./flask
     ports:
@@ -21,7 +25,7 @@ services:
       [
         'sh',
         '-c',
-        'sleep 20 && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000'
+        'sleep 20 && prisma migrate dev && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000'
       ]
     ports:
       - 8000:8000

@@ -8,9 +8,9 @@ from eventlet import monkey_patch
 monkey_patch()
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True, origins='*')
 socketio = SocketIO(app, cors_allowed_origins='*', logger=True, engineio_logger=True)
 redis = Redis(host='redis', port=6379, decode_responses=True, charset="utf-8")
-CORS(app, supports_credentials=True, origins='*')
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
