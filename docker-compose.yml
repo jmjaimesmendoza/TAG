@@ -7,7 +7,7 @@ services:
   flaskapi:
     build: ./flask
     ports:
-      - 5000:5000
+      - 5420:5420
     environment:
       FLASK_APP: main.py
       CORS_ORIGINS: "localhost:4200"

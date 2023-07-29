@@ -5,6 +5,6 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 ENV FLASK_APP main.py
 COPY ./main.py /code/main.py
 
-EXPOSE 5000
+EXPOSE 5420
 
 CMD [ "python", "main.py"]

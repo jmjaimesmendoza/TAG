@@ -24,7 +24,7 @@ def submit_form():
 
         cachedUser = redis.get(username)
         if(cachedUser):
-            socketio.emit('eskeler', {"name": cachedUser, "source": "redis"})
+            socketio.emit('wsresponse', {"name": cachedUser, "source": "redis"})
             return jsonify({"name": cachedUser, "source": "redis"})
 
         form_data = {
@@ -39,10 +39,10 @@ def submit_form():
             if(userRequest.status_code == 200):
                 userData = userRequest.json()
                 redis.set(userData['username'], userData['name'])
-                socketio.emit('eskeler', {"name": userData['name'], "source": "postgresql"})
+                socketio.emit('wsresponse', {"name": userData['name'], "source": "postgresql"})
                 return jsonify({"name": userData['name'], "source": "postgresql"})
         else:
             return jsonify("invalid credentiasl", 400)
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host="0.0.0.0", port=5000)
+    socketio.run(app, debug=True, host="0.0.0.0", port=5420)
